@@ -1,0 +1,11 @@
+{ "working_directory": "/home/kavia/workspace/code-generation",
+ "command": "#!/usr/bin/env bash
+set -euo pipefail
+. /etc/profile.d/prplos_env.sh || true
+WS="${PRPLOS_WORKSPACE:-/home/kavia/workspace/code-generation/prpl-sdk-testgeorge-query-3135-3091/prplos}"
+cd "$WS"
+mkdir -p "$WS/.logs"
+LOG="$WS/.logs/prplos_http_server.log"
+# Run npm build; on failure show recent log and exit 3
+npm run build --silent || { echo "build failed" >&2; tail -n 200 "$LOG" 2>/dev/null || true; exit 3; }
+" }
